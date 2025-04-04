@@ -1,0 +1,23 @@
+{
+    "ros.distro": "humble",
+    "python.autoComplete.extraPaths": [
+        "/home/gawlinski/ros2_ws_h/install/ros2_rg2ft/lib/python3.10/site-packages",
+        "/home/gawlinski/ros2_ws_h/install/onrobot_rg_msgs/local/lib/python3.10/dist-packages",
+        "/home/gawlinski/ros2_ws_h/install/onrobot_rg_modbus_tcp/lib/python3.10/site-packages",
+        "/home/gawlinski/ros2_ws_h/install/onrobot_rg_control/lib/python3.10/site-packages",
+        "/home/gawlinski/ros2_ws_h/install/media_pipe_ros2_msg/local/lib/python3.10/dist-packages",
+        "/home/gawlinski/ros2_ws_h/install/media_pipe_ros2/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/gawlinski/ros2_ws_h/install/ros2_rg2ft/lib/python3.10/site-packages",
+        "/home/gawlinski/ros2_ws_h/install/onrobot_rg_msgs/local/lib/python3.10/dist-packages",
+        "/home/gawlinski/ros2_ws_h/install/onrobot_rg_modbus_tcp/lib/python3.10/site-packages",
+        "/home/gawlinski/ros2_ws_h/install/onrobot_rg_control/lib/python3.10/site-packages",
+        "/home/gawlinski/ros2_ws_h/install/media_pipe_ros2_msg/local/lib/python3.10/dist-packages",
+        "/home/gawlinski/ros2_ws_h/install/media_pipe_ros2/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}
