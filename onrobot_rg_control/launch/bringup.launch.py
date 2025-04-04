@@ -12,7 +12,7 @@ def generate_launch_description():
                   "port", default_value="502",
                   description="Port for the OnRobot gripper"),
             DeclareLaunchArgument(
-                  "gripper", default_value="rg2",
+                  "gripper", default_value="rg2ft",
                   description="Type of the OnRobot gripper"),
             DeclareLaunchArgument(
                   "dummy", default_value="false",
@@ -28,14 +28,7 @@ def generate_launch_description():
                         {"dummy": LaunchConfiguration("dummy")},
                   ],
                   #output="screen", 
-            ),
-            # Node(
-            #       package="onrobot_rg_modbus_tcp",
-            #       executable="comModbusTcp",
-            #       name="Communication",
-            #       #output="screen", 
-            # ),          
-
+            ),         
             Node(
                   package="onrobot_rg_control",
                   executable="onrobot_rg_status_listener",

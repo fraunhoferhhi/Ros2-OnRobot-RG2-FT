@@ -7,16 +7,16 @@ from onrobot_rg_msgs.msg import OnRobotRGOutput
 class OnRobotRGSimpleController(Node):
     def __init__(self):
         super().__init__('OnRobotRGSimpleController')
-        self.declare_parameter('onrobot/gripper', 'rg2')  # Default is 'rg2'
+        self.declare_parameter('onrobot/gripper', 'rg2ft')  # Default-Wert ist 'rg2ft'
         self.gtype = self.get_parameter('onrobot/gripper').get_parameter_value().string_value
         self.pub = self.create_publisher(OnRobotRGOutput, 'OnRobotRGOutput', 1)
         self.command = OnRobotRGOutput()
         self.timer = self.create_timer(0.1, self.publisher)
-#--------------------------------------------------------------------------
+#----------------------------------------------------------
     def genCommand(self, char, command): 
         """Updates the command according to the character entered by the user."""
 
-        if self.gtype == 'rg2':
+        if self.gtype == 'rg2ft':
             max_force = 400
             max_width = 1000
         elif self.gtype == 'rg6':
@@ -64,7 +64,7 @@ class OnRobotRGSimpleController(Node):
 
         return command
 
-#--------------------------------------------------------------------------
+#----------------------------------------------------------
     def askForCommand(self):
         """Asks the user for a command to send to the gripper."""
 
@@ -91,12 +91,12 @@ class OnRobotRGSimpleController(Node):
         strAskForCommand += '-->'
 
         return input(strAskForCommand)
-#--------------------------------------------------------------------------
+#----------------------------------------------------------
     def publisher(self):
-        char = self.askForCommand() # Ask the user for a command
+        char = self.askForCommand()  # Entfernen Sie self.command als Argument
         self.command = self.genCommand(char, self.command)
         self.pub.publish(self.command)
-#--------------------------------------------------------------------------
+#----------------------------------------------------------
 def main(args=None):
     rclpy.init(args=args)
     onrobot_rg_simple_controller = OnRobotRGSimpleController()

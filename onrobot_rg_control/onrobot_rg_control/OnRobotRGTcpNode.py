@@ -13,11 +13,12 @@ class OnRobotRGTcpNode(Node):
         super().__init__('OnRobotRGTcpNode')
         self.get_logger().set_level(rclpy.logging.LoggingSeverity.DEBUG)
 
-        self.declare_parameter('gripper','rg2')     #rg2 = rg2ft
+        # Declare parameters
+        self.declare_parameter('gripper','rg2')
         
         self.declare_parameter('dummy', False)
-        self.declare_parameter('ip', 'setgripperip')  #Standard-IP-Adresse
-        self.declare_parameter('port', 502)  #Standardport
+        self.declare_parameter('ip', '172.24.8.39')  # Setzen Sie hier Ihre Standard-IP-Adresse
+        self.declare_parameter('port', 502)  # Setzen Sie hier Ihren Standardport
 
         # Gripper is a RG gripper with a Modbus/TCP connection
         self.gripper = onrobot_rg_control.baseOnRobotRG.onrobotbaseRG(self.get_parameter('gripper').value)
@@ -36,10 +37,10 @@ class OnRobotRGTcpNode(Node):
         ProxOffsets = [230, 170]
         self.gripper.setProximityOffset(ProxOffsets)
 
-
+        # We loop
         self.prev_msg = []
         self.timer = self.create_timer(0.0005, self.mainLoop)
-#--------------------------------------------------------------------------
+#----------------------------------------------------------
     def mainLoop(self):
         # Get and publish the Gripper status
         status = self.gripper.getStatus()
@@ -52,8 +53,8 @@ class OnRobotRGTcpNode(Node):
             self.get_logger().info(": Sending message.")
             self.gripper
         self.prev_msg = self.gripper.message
-#--------------------------------------------------------------------------
 
+#----------------------------------------------------------
 def main(args=None):
     rclpy.init(args=args)
 

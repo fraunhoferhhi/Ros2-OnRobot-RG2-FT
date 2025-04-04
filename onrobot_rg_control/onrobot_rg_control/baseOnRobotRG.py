@@ -10,7 +10,7 @@ def convertTwoComplement(val):
         val = val - (1 << bits)        # compute negative value
     return val
 
-
+#----------------------------------------------------------
 class onrobotbaseRG:
     """Base class (communication protocol agnostic) for sending commands
        and receiving the status of the OnRobot RG gripper.
@@ -21,12 +21,14 @@ class onrobotbaseRG:
         self.gtype = gtype
         self.message = []
 
-#--------------------------------------------------------------------------
+        # Note: after the instantiation,
+        # a ".client" member must be added to the object
+#----------------------------------------------------------
     def verifyCommand(self, command):
         """Verifies that the value of each variable satisfy its limits."""
 
         # Verify that each variable is in its correct range
-        if self.gtype == 'rg2':
+        if self.gtype == 'rg2ft':
             max_force = 400
             max_width = 1000
         elif self.gtype == 'rg6':
@@ -35,7 +37,7 @@ class onrobotbaseRG:
         else:
             rclpy.shutdown(
                 self.get_name() +
-                ": Select the gripper type from rg2 or rg6.")
+                ": Select the gripper type from rg2ft or rg6.")
 
         command.r_gfr = max(0, command.r_gfr)
         command.r_gfr = min(max_force, command.r_gfr)
@@ -51,7 +53,7 @@ class onrobotbaseRG:
 
         # Return the modified command
         return command
-#--------------------------------------------------------------------------
+#----------------------------------------------------------
     def refreshCommand(self, command):
         """Updates the command which will be sent
            during the next sendCommand() call.
@@ -68,18 +70,18 @@ class onrobotbaseRG:
         self.message.append(command.r_gfr)
         self.message.append(command.r_gwd)
         self.message.append(command.r_ctr)
-        self.message.append(command.out_prox_off_l)
-        self.message.append(command.out_prox_off_r)
-#--------------------------------------------------------------------------
+        #self.message.append(command.out_prox_off_l)
+        #self.message.append(command.out_prox_off_r)
+#----------------------------------------------------------
     def sendCommand(self):
         """Sends the command to the Gripper."""
 
         self.client.sendCommand(self.message)
-#--------------------------------------------------------------------------
+#----------------------------------------------------------
     def setProximityOffset(self, ProxOffsets):
 
         self.client.setProximityOffset(ProxOffsets)
-#--------------------------------------------------------------------------
+#----------------------------------------------------------
     def getStatus(self):
         """Requests the status from the gripper and
            return it in the OnRobotRGInput msg type.
@@ -93,9 +95,12 @@ class onrobotbaseRG:
 
         # Assign the values to their respective variables
 
-        message.g_fof = 0             # The gripper is not in the force mode
+        #original signlas left here to not break anything for now, adjusted the corosponding register number
+        message.g_fof = 0              #There is no similar value for the rg2_ft
         message.g_gwd = status[25]       
-        message.g_wdf = status[25]      
+        message.g_wdf = status[25]       #There is only one register for the actual gripper width, so g_wdf = g_gwd
+
+        #there are now 4 status signals, which we will combine 
 
         if status[2] == 0 and status[11] == 0 and status[19] == 0 and status[22] == 0:
             message.g_sta = 0
