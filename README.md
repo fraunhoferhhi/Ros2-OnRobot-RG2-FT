@@ -1,7 +1,7 @@
 # onrobot_rg_control Ros2 Foxy
 
 The `onrobot_rg_control` package is designed to control the RG2-FT gripper using ROS2 FOXY and Modbus TCP.
-(For Humble change to `master` branch)
+(For Humble change to `main` branch)
 
 ## Installation
 
