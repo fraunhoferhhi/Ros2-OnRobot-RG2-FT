@@ -95,12 +95,11 @@ class onrobotbaseRG:
 
         # Assign the values to their respective variables
 
-        #original signlas left here to not break anything for now, adjusted the corosponding register number
-        message.g_fof = 0              #There is no similar value for the rg2_ft
+       
+        message.g_fof = 0             # The gripper is not in the force mode
         message.g_gwd = status[25]       
-        message.g_wdf = status[25]       #There is only one register for the actual gripper width, so g_wdf = g_gwd
+        message.g_wdf = status[25]      
 
-        #there are now 4 status signals, which we will combine 
 
         if status[2] == 0 and status[11] == 0 and status[19] == 0 and status[22] == 0:
             message.g_sta = 0
